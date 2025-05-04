@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Site com Header e Footer Responsivos</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Site Responsivo</title>
 
   <!-- Fonte Titillium Web -->
-  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap" rel="stylesheet" />
 
   <style>
     * {
@@ -41,14 +41,19 @@
       flex-wrap: wrap;
     }
 
-    footer .container {
-      text-align: center;
-      padding: 20px 0;
-    }
-
     .site-title {
       font-size: 24px;
       font-weight: 700;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: 1px solid #fff;
+      color: #fff;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
     }
 
     nav {
@@ -91,39 +96,39 @@
       display: flex;
     }
 
-    main {
-      padding: 40px 20px;
+    footer .container {
+      text-align: center;
+      padding: 20px 0;
     }
 
-    /* Botão hamburguer */
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: 1px solid #fff;
-      color: #fff;
-      padding: 10px;
-      font-size: 16px;
-      cursor: pointer;
+    main {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      min-height: 100vh;
     }
 
     /* Responsivo */
     @media (max-width: 768px) {
       header .container {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        justify-content: space-between;
       }
 
       .menu-toggle {
         display: block;
-        margin-top: 10px;
+      }
+
+      nav {
+        width: 100%;
       }
 
       nav ul {
         flex-direction: column;
         display: none;
-        width: 100%;
         background-color: #000;
         padding: 10px 0;
+        width: 100%;
       }
 
       nav ul.show {
@@ -150,13 +155,15 @@
 </head>
 <body>
 
-  <!-- Header ocupa 100% -->
+  <!-- Header -->
   <header>
     <div class="container">
       <div class="site-title">Meu Site</div>
 
       <button class="menu-toggle" aria-expanded="false" aria-controls="menu">☰ Menu</button>
+    </div>
 
+    <div class="container">
       <nav>
         <ul id="menu">
           <li><a href="#">Início</a></li>
@@ -175,20 +182,20 @@
     </div>
   </header>
 
-  <!-- Conteúdo principal -->
-  <main class="container">
+  <!-- Main -->
+  <main>
     <h2>Bem-vindo ao site</h2>
     <p>Este é o conteúdo principal da página. Use a navegação acima para acessar as seções.</p>
   </main>
 
-  <!-- Footer ocupa 100% -->
+  <!-- Footer -->
   <footer>
     <div class="container">
       <p>&copy; 2025 Meu Site. Todos os direitos reservados.</p>
     </div>
   </footer>
 
-  <!-- Script para menu responsivo -->
+  <!-- Script -->
   <script>
     const toggleButton = document.querySelector('.menu-toggle');
     const menu = document.getElementById('menu');
