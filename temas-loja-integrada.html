@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Temas Loja Integrada</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Titillium Web', sans-serif;
+      background-color: #fff;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1170px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header,
+    footer {
+      width: 100%;
+      background-color: #000;
+      color: #fff;
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: 1px solid #fff;
+      color: #fff;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+    }
+
+    nav li {
+      position: relative;
+    }
+
+    /* Dropdown */
+    nav ul ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #111;
+      flex-direction: column;
+      min-width: 150px;
+      z-index: 1000;
+    }
+
+    nav ul ul li {
+      padding: 5px 15px;
+    }
+
+    nav li:hover > ul {
+      display: flex;
+    }
+
+    footer .container {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      header .container {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        width: 100%;
+      }
+
+      nav ul {
+        flex-direction: column;
+        display: none;
+        background-color: #000;
+        padding: 10px 0;
+        width: 100%;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      nav li {
+        width: 100%;
+        padding: 10px 20px;
+      }
+
+      nav ul ul {
+        position: relative;
+        background-color: #111;
+        margin-left: 15px;
+        display: none;
+      }
+
+      nav li.open > ul {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="logo">
+        <a href="https://themebolt.github.io/">ThemeBolt</a>
+      </div>
+
+      <button class="menu-toggle" aria-expanded="false" aria-controls="menu">☰</button>
+
+      <nav>
+        <ul id="menu">
+          <li class="has-submenu">
+            <a href="#">Posts</a>
+            <ul>
+              <li><a href="https://themebolt.github.io/temas-shopify">Temas Shopify</a></li>
+              <li><a href="https://themebolt.github.io/temas-loja-integrada">Temas Loja Integrada</a></li>
+              <li><a href="https://themebolt.github.io/temas-nuvemshop">Temas Nuvemshop</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+  
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Meu Site. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    const toggleButton = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('menu');
+
+    toggleButton.addEventListener('click', () => {
+      menu.classList.toggle('show');
+      toggleButton.setAttribute('aria-expanded', menu.classList.contains('show'));
+    });
+
+    const submenuParents = document.querySelectorAll('.has-submenu');
+
+    submenuParents.forEach(parent => {
+      parent.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          parent.classList.toggle('open');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
