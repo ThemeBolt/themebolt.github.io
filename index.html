@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Site Responsivo com Menu Gaveta</title>
+  <title>Site Responsivo</title>
 
   <!-- Fonte Titillium Web -->
   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap" rel="stylesheet" />
@@ -19,7 +19,6 @@
       font-family: 'Titillium Web', sans-serif;
       background-color: #fff;
       color: #333;
-      overflow-x: hidden;
     }
 
     .container {
@@ -39,6 +38,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     .site-title {
@@ -89,6 +89,10 @@
       z-index: 1000;
     }
 
+    nav ul ul li {
+      padding: 5px 15px;
+    }
+
     nav li:hover > ul {
       display: flex;
     }
@@ -105,52 +109,47 @@
       min-height: 100vh;
     }
 
-    /* Mobile Styles - Menu Gaveta */
+    /* Responsivo */
     @media (max-width: 768px) {
+      header .container {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
       .menu-toggle {
         display: block;
       }
 
       nav {
-        position: fixed;
-        top: 0;
-        right: 0;
-        height: 100vh;
-        width: 250px;
-        background-color: #000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease-in-out;
-        flex-direction: column;
-        padding-top: 60px;
-        z-index: 1000;
-      }
-
-      nav.open {
-        transform: translateX(0);
+        width: 100%;
       }
 
       nav ul {
         flex-direction: column;
-        gap: 0;
-        padding: 0;
+        display: none;
+        background-color: #000;
+        padding: 10px 0;
+        width: 100%;
+      }
+
+      nav ul.show {
+        display: flex;
       }
 
       nav li {
-        padding: 15px 20px;
-        border-bottom: 1px solid #111;
+        width: 100%;
+        padding: 10px 20px;
       }
 
       nav ul ul {
         position: relative;
-        top: 0;
         background-color: #111;
-        margin-top: 10px;
+        margin-left: 15px;
         display: none;
       }
 
       nav li.open > ul {
         display: flex;
-        flex-direction: column;
       }
     }
   </style>
@@ -161,26 +160,26 @@
   <header>
     <div class="container">
       <div class="site-title">Meu Site</div>
+
       <button class="menu-toggle" aria-expanded="false" aria-controls="menu">☰</button>
+
+      <nav>
+        <ul id="menu">
+          <li><a href="#">Início</a></li>
+          <li class="has-submenu">
+            <a href="#">Posts</a>
+            <ul>
+              <li><a href="#">Post 1</a></li>
+              <li><a href="#">Post 2</a></li>
+              <li><a href="#">Post 3</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
-
-  <!-- Nav (fora da container para ser fixo) -->
-  <nav id="mobile-menu">
-    <ul>
-      <li><a href="#">Início</a></li>
-      <li class="has-submenu">
-        <a href="#">Posts</a>
-        <ul>
-          <li><a href="#">Post 1</a></li>
-          <li><a href="#">Post 2</a></li>
-          <li><a href="#">Post 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Sobre</a></li>
-      <li><a href="#">Contato</a></li>
-    </ul>
-  </nav>
 
   <!-- Main -->
   <main>
@@ -198,19 +197,20 @@
   <!-- Script -->
   <script>
     const toggleButton = document.querySelector('.menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const submenuItems = document.querySelectorAll('.has-submenu');
+    const menu = document.getElementById('menu');
 
     toggleButton.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-      toggleButton.setAttribute('aria-expanded', mobileMenu.classList.contains('open'));
+      menu.classList.toggle('show');
+      toggleButton.setAttribute('aria-expanded', menu.classList.contains('show'));
     });
 
-    submenuItems.forEach(item => {
-      item.addEventListener('click', (e) => {
+    const submenuParents = document.querySelectorAll('.has-submenu');
+
+    submenuParents.forEach(parent => {
+      parent.addEventListener('click', (e) => {
         if (window.innerWidth <= 768) {
           e.preventDefault();
-          item.classList.toggle('open');
+          parent.classList.toggle('open');
         }
       });
     });
