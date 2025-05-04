@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu Responsivo com Grid</title>
+  <title>Site com Header e Footer Responsivos</title>
 
   <!-- Fonte Titillium Web -->
   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap" rel="stylesheet">
@@ -25,20 +25,30 @@
       max-width: 1170px;
       margin: 0 auto;
       padding: 20px;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      min-height: 100vh;
     }
 
-    header {
+    header,
+    footer {
+      width: 100%;
       background-color: #000;
       color: #fff;
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    footer .container {
+      text-align: center;
       padding: 20px 0;
     }
 
-    .header-inner {
-      display: flex;
-      flex-direction: column;
+    .site-title {
+      font-size: 24px;
+      font-weight: 700;
     }
 
     nav {
@@ -49,7 +59,6 @@
       list-style: none;
       display: flex;
       gap: 20px;
-      flex-wrap: wrap;
     }
 
     nav a {
@@ -83,17 +92,10 @@
     }
 
     main {
-      padding: 40px 0;
+      padding: 40px 20px;
     }
 
-    footer {
-      background-color: #000;
-      color: #fff;
-      text-align: center;
-      padding: 20px 0;
-    }
-
-    /* Botão de menu (hamburger) */
+    /* Botão hamburguer */
     .menu-toggle {
       display: none;
       background: none;
@@ -102,16 +104,26 @@
       padding: 10px;
       font-size: 16px;
       cursor: pointer;
-      margin-top: 10px;
     }
 
-    /* Mobile styles */
+    /* Responsivo */
     @media (max-width: 768px) {
+      header .container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .menu-toggle {
+        display: block;
+        margin-top: 10px;
+      }
+
       nav ul {
         flex-direction: column;
         display: none;
+        width: 100%;
         background-color: #000;
-        padding: 10px;
+        padding: 10px 0;
       }
 
       nav ul.show {
@@ -120,16 +132,7 @@
 
       nav li {
         width: 100%;
-      }
-
-      nav li:hover > ul {
-        position: relative;
-        top: auto;
-        left: auto;
-      }
-
-      .menu-toggle {
-        display: block;
+        padding: 10px 20px;
       }
 
       nav ul ul {
@@ -147,43 +150,45 @@
 </head>
 <body>
 
-  <div class="container">
+  <!-- Header ocupa 100% -->
+  <header>
+    <div class="container">
+      <div class="site-title">Meu Site</div>
 
-    <header>
-      <div class="container header-inner">
-        <h1>Meu Site</h1>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="menu">☰ Menu</button>
 
-        <button class="menu-toggle" aria-expanded="false" aria-controls="menu">☰ Menu</button>
+      <nav>
+        <ul id="menu">
+          <li><a href="#">Início</a></li>
+          <li class="has-submenu">
+            <a href="#">Posts</a>
+            <ul>
+              <li><a href="#">Post 1</a></li>
+              <li><a href="#">Post 2</a></li>
+              <li><a href="#">Post 3</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-        <nav>
-          <ul id="menu">
-            <li><a href="#">Início</a></li>
-            <li class="has-submenu">
-              <a href="#">Posts</a>
-              <ul>
-                <li><a href="#">Post 1</a></li>
-                <li><a href="#">Post 2</a></li>
-                <li><a href="#">Post 3</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Sobre</a></li>
-            <li><a href="#">Contato</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+  <!-- Conteúdo principal -->
+  <main class="container">
+    <h2>Bem-vindo ao site</h2>
+    <p>Este é o conteúdo principal da página. Use a navegação acima para acessar as seções.</p>
+  </main>
 
-    <main>
-      <h2>Bem-vindo ao site</h2>
-      <p>Este é o conteúdo principal da página. Use a navegação acima para acessar as seções.</p>
-    </main>
-
-    <footer>
+  <!-- Footer ocupa 100% -->
+  <footer>
+    <div class="container">
       <p>&copy; 2025 Meu Site. Todos os direitos reservados.</p>
-    </footer>
+    </div>
+  </footer>
 
-  </div>
-
+  <!-- Script para menu responsivo -->
   <script>
     const toggleButton = document.querySelector('.menu-toggle');
     const menu = document.getElementById('menu');
@@ -193,13 +198,12 @@
       toggleButton.setAttribute('aria-expanded', menu.classList.contains('show'));
     });
 
-    // Submenu toggle para mobile
     const submenuParents = document.querySelectorAll('.has-submenu');
 
     submenuParents.forEach(parent => {
       parent.addEventListener('click', (e) => {
         if (window.innerWidth <= 768) {
-          e.preventDefault(); // impede o link principal de ser seguido
+          e.preventDefault();
           parent.classList.toggle('open');
         }
       });
@@ -208,4 +212,3 @@
 
 </body>
 </html>
-
